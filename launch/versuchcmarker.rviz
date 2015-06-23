@@ -11,10 +11,7 @@ Panels:
         - /TF1
         - /TF1/Frames1
         - /InteractiveMarkers1
-        - /MarkerArray1
-        - /MarkerArray1/Namespaces1
         - /Marker1
-        - /Marker1/Namespaces1
       Splitter Ratio: 0.550336
     Tree Height: 719
   - Class: rviz/Selection
@@ -111,6 +108,20 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        tool_center:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        tool_disk:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        tool_pole:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         world:
           Alpha: 1
           Show Axes: false
@@ -144,9 +155,13 @@ Visualization Manager:
           Value: true
         link_7:
           Value: true
-        obstacle_1:
+        marker:
           Value: true
-        target:
+        tool_center:
+          Value: true
+        tool_disk:
+          Value: true
+        tool_pole:
           Value: true
         world:
           Value: true
@@ -166,37 +181,30 @@ Visualization Manager:
                       link_6:
                         link_7:
                           ee_link:
-                            {}
-            obstacle_1:
+                            tool_disk:
+                              tool_center:
+                                {}
+                              tool_pole:
+                                {}
+            marker:
               {}
-          target:
-            {}
       Update Interval: 0
       Value: true
     - Class: rviz/InteractiveMarkers
-      Enable Transparency: true
+      Enable Transparency: false
       Enabled: true
       Name: InteractiveMarkers
       Show Axes: false
-      Show Descriptions: true
+      Show Descriptions: false
       Show Visual Aids: false
       Update Topic: /interactive_marker_server/update
       Value: true
-    - Class: rviz/MarkerArray
-      Enabled: true
-      Marker Topic: visualization_markerarray
-      Name: MarkerArray
-      Namespaces:
-        Kugel: true
-        Punkt: true
-      Queue Size: 100
-      Value: true
     - Class: rviz/Marker
       Enabled: true
-      Marker Topic: visualization_marker
+      Marker Topic: /visualization_marker
       Name: Marker
       Namespaces:
-        /ee_link: true
+        /tool_center: true
       Queue Size: 100
       Value: true
   Enabled: true
@@ -223,22 +231,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.56476
+      Distance: 1.55209
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.113665
-        Y: -0.192115
-        Z: -0.0599298
+        X: 0.656107
+        Y: 0.153896
+        Z: 0.240092
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.239801
+      Pitch: 0.169801
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.89043
+      Yaw: 4.61041
     Saved: ~
 Window Geometry:
   Displays:

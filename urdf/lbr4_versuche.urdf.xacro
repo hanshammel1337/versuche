@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="lbr4_empty">
+
+
+    <!-- INCLUDES -->
+
+    <xacro:include filename="$(find ipa325_robot_descriptions)/urdf/lbr4/lbr.urdf.xacro" />
+    <!-- Tool -->
+    <xacro:include filename="$(find versuche)/urdf/simple_pole.urdf.xacro" />
+
+    <!-- PROPERTIES -->
+
+    <property name="arm_x" value="0"/>
+    <property name="arm_y" value="0"/>
+    <property name="arm_z" value="0"/>
+    <property name="arm_roll" value="0"/>
+    <property name="arm_pitch" value="0"/>
+    <property name="arm_yaw" value="0"/>
+
+    <!-- Tool (flange to tool)-->
+    <property name="tool_x" value="0.0"/>
+    <property name="tool_y" value="0.0"/>
+    <property name="tool_z" value="0.0"/>
+    <property name="tool_roll" value="0.0"/>
+    <property name="tool_pitch" value="0.0"/>
+    <property name="tool_yaw" value="0.0"/>
+
+
+    <!-- OBJECTS -->
+
+    <!-- World -->
+    <link name="world"/>
+
+    <!-- Arm -->
+    <xacro:lbr4 prefix="" parent="world">
+        <origin xyz="${arm_x} ${arm_y} ${arm_z}" rpy="${arm_roll} ${arm_pitch} ${arm_yaw}" />
+    </xacro:lbr4>
+
+    <!-- Tool -->
+    <xacro:simple_pole prefix="" parent="ee_link">
+        <origin xyz="${tool_x} ${tool_y} ${tool_z}" rpy="${tool_roll} ${tool_pitch} ${tool_yaw}" />
+    </xacro:simple_pole>
+
+</robot>

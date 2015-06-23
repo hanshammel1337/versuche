@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="simple_pole">
+
+
+	<xacro:macro name="simple_pole" params="parent prefix *origin">
+
+
+		<!-- mount the tool to the robot -->
+		<joint name="{prefix}tool_joint_disk" type="fixed" >
+			<insert_block name="origin" />
+			<parent link="${parent}" />
+			<child link="${prefix}tool_disk" />
+		</joint>
+
+
+		<link name="${prefix}tool_disk">
+			<visual>
+				<origin xyz="0 0 0" rpy="0 0 0" />
+				<geometry>
+					<cylinder length="0.010" radius="0.038"/>
+	 			</geometry>
+				<material name="greyish">
+					<color rgba="0.8 0.8 0.8 1"/>
+				</material>
+			</visual>
+		</link>
+
+
+		<joint name="{prefix}tool_joint_pole" type="fixed" >
+			<origin xyz="0.0 0.0 0.01" rpy="0 0 0" />
+			<parent link="${prefix}tool_disk" />
+			<child link="${prefix}tool_pole" />
+		</joint>
+
+		<link name="${prefix}tool_pole">
+			<visual>
+				<origin xyz="0 0 0.048" rpy="0 0 0" />
+				<geometry>
+					<cylinder length="0.096" radius="0.009"/>
+	 			</geometry>
+				<material name="greyish">
+					<color rgba="0.8 0.8 0.8 1"/>
+				</material>
+			</visual>
+		</link>
+
+		<!-- TCP -->
+		<joint name="${prefix}tool_joint_center" type="fixed" >
+			<origin xyz="0.0 0.0 0.106" rpy="0 0 0" />
+			<parent link="${prefix}tool_disk" />
+			<child link="${prefix}tool_center" />
+		</joint>
+
+		<link name="${prefix}tool_center"/>
+
+
+	</xacro:macro>
+</robot>

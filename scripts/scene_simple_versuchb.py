@@ -34,11 +34,13 @@ class Scene_Simple_Obstacle(Scene_Simple):
         self.target_base_z = None
 
         self.active = 1.0
+        self.wievieleaufgabeaktiv = 0
         self.start_point = []
         self.end_point = []  
 
         self.inittime = time.time()
         self.filee = open('/home/'+str(getpass.getuser())+'/versuch_b_'+str(int(self.inittime))+'.csv','w+')
+        self.filee.write('zeit,distance_to_obstacle,aktivierungsfaktor,aktive_aufgaben\n')
         self.lastsavedtime = 0.0
 
 
@@ -121,6 +123,7 @@ class Scene_Simple_Obstacle(Scene_Simple):
             # change tasks to task[0] and task[1], when not set already
             if self.tasks != [self.initial_tasks[0],self.initial_tasks[1]]:
                 self.set_tasks([self.initial_tasks[0],self.initial_tasks[1]])
+                self.wievieleaufgabeaktiv = 2
         else:
             # reset orientation of obstacel tf, when not in critical distance to obstacle
             rospy.set_param('obstacle_a', 0)
@@ -131,11 +134,12 @@ class Scene_Simple_Obstacle(Scene_Simple):
             # only do this, when not set. so no unnecessary call of 'build_tasks' is executed
             if self.tasks != [self.initial_tasks[1]]:
                 self.set_tasks([self.initial_tasks[1]])
+                self.wievieleaufgabeaktiv = 1
 
         ## save data for plots
         newtime = float(time.time())-self.inittime
         if self.lastsavedtime + 0.18 <= newtime: #5x per second
-            self.filee.write( string.join([str(newtime),str(self.obstacle_distance),str(self.active)],';')+'\n')
+            self.filee.write( string.join([str(newtime),str(self.obstacle_distance),str(self.active),str(self.wievieleaufgabeaktiv)],';')+'\n')
             self.lastsavedtime = newtime
 
     ## send a pose to the parameter server,

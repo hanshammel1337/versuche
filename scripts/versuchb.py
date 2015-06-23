@@ -34,8 +34,8 @@ def run():
 	robot = Robot_LBR4("", use_integrator=True)
 	
 	# Chain_SimplePose uses "Driver_Tflistener"
-	target_to_eef  = Chain_SimplePose('target_to_eef', 'x1', 'feature', 'target', 'ee_link')
-	obstacle_to_eef = Chain_SimplePose('obstacle_to_eef', 'x2', 'feature', 'obstacle_1', 'ee_link')
+	target_to_eef  = Chain_SimplePose('target_to_eef', 'x1', 'feature', 'target', 'tool_center')
+	obstacle_to_eef = Chain_SimplePose('obstacle_to_eef', 'x2', 'feature', 'obstacle_1', 'tool_center')
 
 	base_to_target = Chain_SimplePose('base_to_target', 'o1', 'object', 'base_link', 'target')
 	base_to_obstacle = Chain_SimplePose('base_to_obstacle','o2', 'object', 'base_link', 'obstacle_1')
