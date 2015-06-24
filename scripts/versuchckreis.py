@@ -34,7 +34,7 @@ def run():
 	# integrator=True  => dq's werden ueber sensor_msgs.msg/JointState gepublished
 	# integrator=False => JointTrajectory wird zum roboter gesendet
 	print 'Setting up the kinematic chains'
-	robot = Robot_LBR4("lbr4", use_integrator=True)
+	robot = Robot_LBR4("lbr4", use_integrator=False)
 
 	# Chain_SimplePose uses "Driver_Tflistener"
 	target_to_eef  = Chain_SimplePose('target_to_eef', 'x1', 'feature', 'moving_tf', 'tool_center')
@@ -96,7 +96,7 @@ def run():
 		T6 = np.dot(scene.links[5].transform_offset,kin.TransformRotZ(scene.measurements['joint_6']+ x[5]))
 		T7 = np.dot(scene.links[6].transform_offset,kin.TransformRotZ(scene.measurements['joint_7']+ x[6]))
 		T8 = scene.links[7].transform
-		T9 = kin.TransformRPY(0,0,0.1,0,0,0) #transform for gripper simple_pole
+		T9 = kin.TransformRPY(0,0,0.106,0,0,0) #transform for gripper simple_pole
 		T = T1.dot(T2).dot(T3).dot(T4).dot(T5).dot(T6).dot(T7).dot(T8).dot(T9)
 		## return x,y,z of end effector
 		return T[0,3],T[1,3],T[2,3]
@@ -136,14 +136,14 @@ def run():
 	## example 3: keep distance end effector to obstacle greater than 0.1 ##
 	def b17(x):
 		ee_x, ee_y, ee_z = direct_kinematic(x)
-		distance_x = 0.4 - ee_x
+		distance_x = 0.5 - ee_x
 		distance_y = -0.15 - ee_y
 		distance_z = 0.10 - ee_z
 		distance_norm = sqrt(distance_x**2+distance_y**2+distance_z**2)
 		scene.distance_to_obstacle = distance_norm
 		## return inequality
 		## distance_norm > 0.1
-		print distance_norm
+		#print distance_norm
 		return distance_norm - 0.1
 
 	## set correct inequality list, when movement is in critical area

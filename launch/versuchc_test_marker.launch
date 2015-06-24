@@ -15,10 +15,24 @@
 	<param name="robot_description" command="$(find xacro)/xacro.py '$(find versuche)/urdf/lbr4_versuche.urdf.xacro'" />
 
 	<!-- rviz -->
-	<node pkg="rviz" type="rviz" name="rviz" args="-d $(find versuche)/launch/versuchckreis.rviz"/>
+	<node pkg="rviz" type="rviz" name="rviz" args="-d $(find versuche)/launch/versuchcmarker.rviz"/>
 
 	<!-- robot state publisher -->
 	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+
+	<!-- interactive marker-->
+	<node name="interactive_pose_publisher" pkg="interactive_pose_publisher" type="interactive_pose_publisher_node">
+		<param name="interactive_pose_topic" value="itasc_set_pose"/>
+		<param name="interactive_pose_parent" value="/base_link"/>
+		<param name="initial_pose/position/x" value="0.5"/>
+		<param name="initial_pose/position/y" value="0.5"/>
+		<param name="initial_pose/position/z" value="0.5"/>
+		<param name="initial_pose/orientation/x" value="1"/>
+		<param name="initial_pose/orientation/y" value="0"/>
+		<param name="initial_pose/orientation/z" value="0"/>
+		<param name="initial_pose/orientation/w" value="0"/>
+	</node>
 
 	<node name="tf_obstacle_broadcaster" pkg="tf_obstacle_broadcaster" type="tf_obstacle_broadcaster.py">
 		<param name="obstacle_init_x" value="$(arg obstacle_x)"/>
@@ -28,7 +42,6 @@
 		<param name="obstacle_init_b" value="0"/>
 		<param name="obstacle_init_c" value="0"/>
 	</node>
-
 
 	<!-- publish markers to show static objects in rviz
 		 type: ARROW=0
@@ -111,35 +124,4 @@
 		<param name="id" value="1"/>
 	</node>
 
-	<node pkg="ipa325_tf_utils" type="moving_tf_frame.py" name="moving_tf" output="screen">
-		<param name="tf_parent" 	value="/base_link" 	type="str"/>
-		<param name="tf_child" 		value="/moving_tf" 	type="str"/>
-
-		<!-- choose either: line, circle or spiral-->
-		<param name="movement_type"	value="circle" 		type="str"/>
-
-		<param name="move_frame_roll" 	value="0" 		type="double" />
-		<param name="move_frame_pitch" 	value="3.14159265" 	type="double" />
-		<param name="move_frame_yaw" 	value="0" 		type="double" />
-
-		<!-- circle parameters -->
-		<param name="x_center_c" 	value="0.50" 	type="double" />
-		<param name="y_center_c" 	value="0" 		type="double" />
-		<param name="z_center_c" 	value="0.12" 	type="double" />
-		<param name="radius" 		value="0.15" 	type="double" />
-
-		<!-- time parameters -->
-		<param name="time_steps_hz" value="100" 	type="double" />
-		<param name="speed"			value="0.2" 	type="double" />
-		<param name="stop_time" 	value="0" 		type="double" />
-
-		<!-- trace parameters -->
-		<param name="show_path" 	value="True" 	type="bool" />
-		<param name="trace_scale"	value="0.003" 	type="double" />
-
-		<param name="trace_color_r" value="0" 		type="double" />
-		<param name="trace_color_g" value="0" 		type="double" />
-		<param name="trace_color_b" value="1" 		type="double" />
-		<param name="trace_color_a" value="1" 		type="double" />
-	</node>
 </launch>

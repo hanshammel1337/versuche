@@ -31,7 +31,7 @@ def run():
 	# integrator=True  => dq's werden ueber sensor_msgs.msg/JointState gepublished
 	# integrator=False => JointTrajectory wird zum roboter gesendet
 	print 'Setting up the kinematic chains'
-	robot = Robot_LBR4("", use_integrator=True)
+	robot = Robot_LBR4("", use_integrator=False)
 	
 	# Chain_SimplePose uses "Driver_Tflistener"
 	target_to_eef  = Chain_SimplePose('target_to_eef', 'x1', 'feature', 'target', 'tool_center')
@@ -79,8 +79,8 @@ def run():
 
 	scene.default_controller = p_controller
 	scene.solver = solver
-	scene.start_point = [0.15,-0.1,0.4 ,0,3.1415,0]
-	scene.end_point = [0.6,-0.3,0.1 ,0,3.1415,0]
+	scene.start_point = [0.25,-0.15,0.4 ,0,3.1415,0]
+	scene.end_point = [0.4,-0.35,0.15 ,0,3.1415,0]
 	#scene.start_point = [0.41,-0.18,0 ,0,0,0]		# another point
 	#scene.end_point = [0.41,-0.18,0.5 ,0,0,0]
 	scene.send_target(scene.start_point)

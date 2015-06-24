@@ -15,6 +15,7 @@ from pitasc_core.chains.chain_simple_pose import Chain_SimplePose
 from pitasc_core.kinematic_loop import KinematicLoop
 
 from solver_joint_middle_v import Solver_Jointmiddle
+from solver_prioritized_versucha import Solver_Prioritized
 
 from pitasc_core.controllers.controller_simple import Controller_P
 
@@ -34,7 +35,7 @@ def run():
 	# integrator=True  => dq's werden ueber sensor_msgs.msg/JointState gepublished
 	# integrator=False => JointTrajectory wird zum roboter gesendet
 	print 'Setting up the kinematic chains'
-	robot = Robot_LBR4("lbr4", use_integrator=True)
+	robot = Robot_LBR4("lbr4", use_integrator=False)
 
 	# Chain_SimplePose uses "Driver_Tflistener"
 	target_to_eef  = Chain_SimplePose('target_to_eef', 'x1', 'feature', 'moving_tf', 'tool_center')
@@ -67,7 +68,9 @@ def run():
 	print 'Setting up the scene'
 	scene = Scene_Simple()
 	scene.versuchsname = 'middle'
-	solver = Solver_Jointmiddle(scene)
+	#scene.versuchsname = 'free'
+	#solver = Solver_Prioritized(scene)           #__TOGGLE
+	solver = Solver_Jointmiddle(scene)            #__TOGGLE
 
 	scene.default_controller = p_controller
 	scene.solver = solver

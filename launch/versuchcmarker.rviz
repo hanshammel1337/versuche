@@ -141,18 +141,6 @@ Visualization Manager:
           Value: true
         ee_link:
           Value: true
-        link_1:
-          Value: true
-        link_2:
-          Value: true
-        link_3:
-          Value: true
-        link_4:
-          Value: true
-        link_5:
-          Value: true
-        link_6:
-          Value: true
         link_7:
           Value: true
         marker:
@@ -165,7 +153,7 @@ Visualization Manager:
           Value: true
         world:
           Value: true
-      Marker Scale: 0.8
+      Marker Scale: 0.4
       Name: TF
       Show Arrows: false
       Show Axes: true
@@ -173,25 +161,12 @@ Visualization Manager:
       Tree:
         world:
           base_link:
-            link_1:
-              link_2:
-                link_3:
-                  link_4:
-                    link_5:
-                      link_6:
-                        link_7:
-                          ee_link:
-                            tool_disk:
-                              tool_center:
-                                {}
-                              tool_pole:
-                                {}
             marker:
               {}
       Update Interval: 0
       Value: true
     - Class: rviz/InteractiveMarkers
-      Enable Transparency: false
+      Enable Transparency: true
       Enabled: true
       Name: InteractiveMarkers
       Show Axes: false
@@ -204,14 +179,14 @@ Visualization Manager:
       Marker Topic: /visualization_marker
       Name: Marker
       Namespaces:
-        /tool_center: true
+        {}
       Queue Size: 100
       Value: true
   Enabled: true
   Global Options:
     Background Color: 181; 181; 181
     Fixed Frame: world
-    Frame Rate: 60
+    Frame Rate: 30
   Name: root
   Tools:
     - Class: rviz/Interact
@@ -238,15 +213,15 @@ Visualization Manager:
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.656107
-        Y: 0.153896
-        Z: 0.240092
+        X: 0.415657
+        Y: 0.0454323
+        Z: 0.224622
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.169801
+      Pitch: 0.599801
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.61041
+      Yaw: 1.31223
     Saved: ~
 Window Geometry:
   Displays:
@@ -264,5 +239,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1215
-  X: 1985
-  Y: 80
+  X: 589
+  Y: 48

@@ -221,14 +221,13 @@ Visualization Manager:
       Name: Marker
       Namespaces:
         /tool_center: true
-        moving_tf: true
       Queue Size: 100
       Value: true
   Enabled: true
   Global Options:
     Background Color: 181; 181; 181
-    Fixed Frame: world
-    Frame Rate: 60
+    Fixed Frame: base_link
+    Frame Rate: 30
   Name: root
   Tools:
     - Class: rviz/Interact
@@ -248,22 +247,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 0.868017
+      Distance: 1.46425
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.419461
-        Y: 0.0280261
-        Z: 0.053933
+        X: 0.03507
+        Y: 0.052201
+        Z: 0.04327
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.669801
+      Pitch: 0.561904
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 6.00542
+      Yaw: 0.808257
     Saved: ~
 Window Geometry:
   Displays:
@@ -281,5 +280,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1215
-  X: 1985
-  Y: 80
+  X: 685
+  Y: 60

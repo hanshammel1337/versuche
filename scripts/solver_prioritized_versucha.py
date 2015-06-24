@@ -11,7 +11,7 @@ from pitasc_core.solver import Solver
 import pitasc_core.kinematics as kin
 
 
-class Solver_Jointmiddle(Solver):
+class Solver_Prioritized(Solver):
     """ Computes the desired joint velocities dq_d based on the so called
         task priority strategy.
     """
@@ -23,12 +23,6 @@ class Solver_Jointmiddle(Solver):
         self.lastsavedtime = 0.0
 
     def get_joint_vel(self, A_num, dy_d, scene):
-        #q1min = 2.8407
-        #q1max = 4.4112
-
-        q1min = -0.785398163
-        q1max = 0.785398163 #45 grad
-        q1mid = (q1min+q1max)/2
         """ Compute desired joint velocities based on priorities.
 
         Priorities are represented as follows:
@@ -44,15 +38,20 @@ class Solver_Jointmiddle(Solver):
             of priority levels while the sum over priority_groups equals the
             number of constraints.
         """
+        q1min = -0.785398163
+        q1max = 0.785398163 #45 grad
+        q1mid = (q1min+q1max)/2
+
         newtime = float(time.time())-self.inittime
         if self.lastsavedtime + 0.18 <= newtime:
             self.filee.write( string.join([str(newtime),str(scene.measurements['joint_1']),str(q1min),str(q1max),str(q1mid)],';')+'\n')
             self.lastsavedtime = newtime
-
+        
         ## Loop through tasks ##
         ##
         n = 0 # sum of all higher prioritized symbols
         m = 0 # number of symbols in current priority group
+
         for i in range(0, len(scene.priority_groups)):
 
             ## Current task ##
@@ -61,21 +60,32 @@ class Solver_Jointmiddle(Solver):
             A_m = A_num[n:(n+m),:]
             y_m =  dy_d[n:(n+m)]
 
-            ka = 2.0  #faktor
+            if i < 1:
+                ## Current task has highest priority ##
+                ##
+                A_m_inv = kin.svd_inverse(A_m)
+                dq = np.dot(A_m_inv, y_m)
 
-            ## Current task has highest priority ##
-            ##
-            Z = np.array([0.0,0.0,0.0, 0.0,0.0,0.0,0.0])
-            Z[0] = ka * (-(scene.measurements['joint_1'] - q1mid) / ((q1max-q1min)**2))
-            #print Z[0]
-            A_m_inv = kin.svd_inverse(A_m) # singularity-robust inverse
+            else:
+                ## All tasks with higher priority ##
+                ##
+                A_n = A_num[0:n, :]
+                # singularities in the "higher up" tasks do not affect the
+                # "lower" tasks (Siciliano & Slotine, 1991)
+                A_n_inv = kin.svd_inverse(A_n) # regular inverse
 
-            P1 = np.eye(A_m.shape[1]) - np.dot(A_m_inv, A_m)
+                ## Projection matrix ##
+                ##
+                ## P = I - (A^# * A)
+                P = np.eye(A_n.shape[1]) - np.dot(A_n_inv, A_n)
 
-            dq = np.dot(A_m_inv, y_m) + np.dot(P1,Z)
+                ## Projection into nullspace ##
+                ##
+                ## dq = (Am * P)^# * (y - Am*dq)
+                dq += np.dot(kin.svd_inverse(np.dot(A_m,P)), (y_m - np.dot(A_m,dq)))
+            
+            n = n + m
 
-
-        #print scene.measurements['joint_1']
         return dq
 
 # eof

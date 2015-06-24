@@ -34,11 +34,11 @@ def run():
 	# integrator=True  => dq's werden ueber sensor_msgs.msg/JointState gepublished
 	# integrator=False => JointTrajectory wird zum roboter gesendet
 	print 'Setting up the kinematic chains'
-	robot = Robot_LBR4("lbr4", use_integrator=True)
+	robot = Robot_LBR4("lbr4", use_integrator=False)
 
 	# Chain_SimplePose uses "Driver_Tflistener"
-	target_to_eef  = Chain_SimplePose('target_to_eef', 'x1', 'feature', 'moving_tf', 'tool_center')
-	base_to_target = Chain_SimplePose('base_to_target', 'o1', 'object', 'base_link', 'moving_tf')
+	target_to_eef  = Chain_SimplePose('target_to_eef', 'x1', 'feature', 'marker', 'tool_center')
+	base_to_target = Chain_SimplePose('base_to_target', 'o1', 'object', 'base_link', 'marker')
 	
 	#########################################################################################
 	##---------Kinematic Loops ##
@@ -66,7 +66,7 @@ def run():
 	##---------Scene ##
 	print 'Setting up the scene'
 	scene = Scene_Simple()
-	scene.versuchsname = 'joint1_aktiv'
+	scene.versuchsname = 'kreis'
 	solver = Solver_FMIN_SLSQP(scene)
 
 	scene.default_controller = p_controller
@@ -96,8 +96,9 @@ def run():
 		T6 = np.dot(scene.links[5].transform_offset,kin.TransformRotZ(scene.measurements['joint_6']+ x[5]))
 		T7 = np.dot(scene.links[6].transform_offset,kin.TransformRotZ(scene.measurements['joint_7']+ x[6]))
 		T8 = scene.links[7].transform
-		T9 = kin.TransformRPY(0,0,0.1,0,0,0) #transform for gripper simple_pole
+		T9 = kin.TransformRPY(0,0,0.106,0,0,0) #transform for gripper simple_pole
 		T = T1.dot(T2).dot(T3).dot(T4).dot(T5).dot(T6).dot(T7).dot(T8).dot(T9)
+		print T[0,3]
 		## return x,y,z of end effector
 		return T[0,3],T[1,3],T[2,3]
 
@@ -115,8 +116,8 @@ def run():
 	b7 = lambda x: np.array( (scene.measurements['joint_4'] + x[3]) - scene.links[3].limit_min )
 	b8 = lambda x: np.array( scene.links[3].limit_max - (scene.measurements['joint_4'] + x[3]) )
 
-	b9 = lambda x: np.array( (scene.measurements['joint_5'] + x[4]) - scene.links[4].limit_min )			####
-	b10 = lambda x: np.array( scene.links[4].limit_max - (scene.measurements['joint_5'] + x[4]) )			####
+	b9 = lambda x: np.array( (scene.measurements['joint_5'] + x[4]) - scene.links[4].limit_min )
+	b10 = lambda x: np.array( scene.links[4].limit_max - (scene.measurements['joint_5'] + x[4]) )
 
 	b11 = lambda x: np.array( (scene.measurements['joint_6'] + x[5]) - scene.links[5].limit_min )
 	b12 = lambda x: np.array( scene.links[5].limit_max - (scene.measurements['joint_6'] + x[5]) )
@@ -130,26 +131,26 @@ def run():
 		z_value = direct_kinematic(x)[2]
 		scene.endeffektor_z_soll = z_value
 		scene.endeffektor_z_ist = scene.drivers[1].get_value('o1z')
-		print scene.measurements['joint_5']
 		return z_value - 0.2
 	b16 = lambda x: 0.5 - direct_kinematic(x)[2]
 
 	## example 3: keep distance end effector to obstacle greater than 0.1 ##
 	def b17(x):
 		ee_x, ee_y, ee_z = direct_kinematic(x)
-		distance_x = 0.3 - ee_x
+		distance_x = 0.5 - ee_x
 		distance_y = -0.15 - ee_y
 		distance_z = 0.10 - ee_z
 		distance_norm = sqrt(distance_x**2+distance_y**2+distance_z**2)
 		scene.distance_to_obstacle = distance_norm
 		## return inequality
 		## distance_norm > 0.1
+		#print distance_norm
 		return distance_norm - 0.1
 
 	## set correct inequality list, when movement is in critical area
 	## not necessary, but maybe speed up the solver, due to smaller number of constraints
-	#inequaliy_list = [b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b16]
-	solver.add_inequality([b1,b2])
+	#inequaliy_list = [b1,b2,b3,b4,b5,b6,hh7,b8,b9,b10,b11,b12,b13,b16]
+	solver.add_inequality([b17])
 	#solver.remove_inequality([b1,b2,b3,b4])
 	
 	robot.robot_drivers[0].set_observer(scene.update)

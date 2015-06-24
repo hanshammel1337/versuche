@@ -6,9 +6,6 @@
 
 		access value via $(arg obstacle_x)
 	-->
-	<arg name="obstacle_x" value="0.4" />
-	<arg name="obstacle_y" value="-0.15" />
-	<arg name="obstacle_z" value="0.10" />
 
 	<!-- robot description -->
 	<!--param name="robot_description" command="$(find xacro)/xacro.py '$(find ipa325_robot_descriptions)/urdf/cells/empty/ipa325_lbr4_empty.urdf.xacro'" /-->
@@ -37,56 +34,6 @@
 			   TRIANGLE_LIST=11
 	-->
 
-	<node name="marker_publisher" pkg="marker_publisher" type="marker_publisher.py">
-		<param name="number" value="2"/>
-
-		<param name="namespace_0" value="Kugel"/>
-		<param name="id_0" value="33"/>
-		<param name="type_0" value="2"/>
-		<param name="action_0" value="0"/>
-		<param name="x_0" value="$(arg obstacle_x)"/>
-		<param name="y_0" value="$(arg obstacle_y)"/>
-		<param name="z_0" value="$(arg obstacle_z)"/>
-		<param name="scale_x_0" value="0.2"/>
-		<param name="scale_y_0" value="0.2"/>
-		<param name="scale_z_0" value="0.2"/>
-		<param name="red_0" value="1.0"/>
-		<param name="green_0" value="0.0"/>
-		<param name="blue_0" value="0.0"/>
-		<param name="alpha_0" value="0.3"/>
-
-		<param name="namespace_1" value="Punkt"/>
-		<param name="id_1" value="44"/>
-		<param name="type_1" value="2"/>
-		<param name="action_1" value="0"/>
-		<param name="x_1" value="$(arg obstacle_x)"/>
-		<param name="y_1" value="$(arg obstacle_y)"/>
-		<param name="z_1" value="$(arg obstacle_z)"/>
-		<param name="scale_x_1" value="0.02"/>
-		<param name="scale_y_1" value="0.02"/>
-		<param name="scale_z_1" value="0.02"/>
-		<param name="red_1" value="1"/>
-		<param name="green_1" value="0"/>
-		<param name="blue_1" value="0"/>
-		<param name="alpha_1" value="1"/>
-		<!-- 
-		<param name="namespace_2" value="Linie"/>
-		<param name="id_2" value="55"/>
-		<param name="type_2" value="4"/>
-		<param name="action_2" value="0"/>
-		<param name="start_x_2" value="0.15"/>
-		<param name="start_y_2" value="-0.1"/>
-		<param name="start_z_2" value="0.1"/>
-		<param name="end_x_2" value="0.70"/>
-		<param name="end_y_2" value="-0.3"/>
-		<param name="end_z_2" value="0.4"/>
-		<param name="scale_x_2" value="0.003"/>
-		<param name="red_2" value="0.66"/>
-		<param name="green_2" value="0.66"/>
-		<param name="blue_2" value="0.66"/>
-		<param name="alpha_2" value="1"/>-->
-	</node>
-	-->
 	<!-- trace tf publisher -->
 	<node name="$(anon trace_publisher)" pkg="ipa325_tf_trace_publisher" type="trace_publisher.py" output="screen">
 		<param name="tf_parent" value="/base_link"/>
@@ -115,10 +62,10 @@
 		<param name="move_frame_yaw" 	value="0" 		type="double" />
 
 		<!-- circle parameters -->
-		<param name="x_center_c" 	value="0.40" 	type="double" />
-		<param name="y_center_c" 	value="0" 		type="double" />
-		<param name="z_center_c" 	value="0.12" 	type="double" />
-		<param name="radius" 		value="0.15" 	type="double" />
+		<param name="x_center_c" 	value="0.50" 	type="double" />
+		<param name="y_center_c" 	value="-0.15" 		type="double" />
+		<param name="z_center_c" 	value="0.20" 	type="double" />
+		<param name="radius" 		value="0.10" 	type="double" />
 
 		<!-- time parameters -->
 		<param name="time_steps_hz" value="100" 	type="double" />

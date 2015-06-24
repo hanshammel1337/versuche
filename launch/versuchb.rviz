@@ -115,11 +115,12 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        tool_corner:
+        tool_disk:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        tool_flange:
+          Value: true
+        tool_pole:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -140,36 +141,36 @@ Visualization Manager:
       Frames:
         All Enabled: false
         base_link:
-          Value: true
+          Value: false
         ee_link:
-          Value: true
+          Value: false
         link_1:
-          Value: true
+          Value: false
         link_2:
-          Value: true
+          Value: false
         link_3:
-          Value: true
+          Value: false
         link_4:
-          Value: true
+          Value: false
         link_5:
-          Value: true
+          Value: false
         link_6:
-          Value: true
+          Value: false
         link_7:
-          Value: true
+          Value: false
         obstacle_1:
           Value: true
         target:
           Value: true
         tool_center:
           Value: true
-        tool_corner:
-          Value: true
-        tool_flange:
-          Value: true
+        tool_disk:
+          Value: false
+        tool_pole:
+          Value: false
         world:
-          Value: true
-      Marker Scale: 0.8
+          Value: false
+      Marker Scale: 0.4
       Name: TF
       Show Arrows: false
       Show Axes: true
@@ -185,15 +186,15 @@ Visualization Manager:
                       link_6:
                         link_7:
                           ee_link:
-                            tool_flange:
+                            tool_disk:
                               tool_center:
                                 {}
-                              tool_corner:
+                              tool_pole:
                                 {}
             obstacle_1:
               {}
-          target:
-            {}
+            target:
+              {}
       Update Interval: 0
       Value: true
     - Class: rviz/InteractiveMarkers
@@ -219,7 +220,7 @@ Visualization Manager:
       Marker Topic: visualization_marker
       Name: Marker
       Namespaces:
-        /ee_link: true
+        /tool_center: true
       Queue Size: 100
       Value: true
   Enabled: true
@@ -246,22 +247,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.82058
+      Distance: 2.03905
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.419461
-        Y: 0.0280261
-        Z: 0.053933
+        X: 0.45998
+        Y: -0.0725271
+        Z: 0.049884
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.0798012
+      Pitch: 0.479801
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 5.29542
+      Yaw: 1.03723
     Saved: ~
 Window Geometry:
   Displays:
@@ -279,5 +280,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1215
-  X: 1985
-  Y: 80
+  X: 695
+  Y: 70

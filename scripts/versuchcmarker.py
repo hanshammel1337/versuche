@@ -34,7 +34,7 @@ def run():
 	# integrator=True  => dq's werden ueber sensor_msgs.msg/JointState gepublished
 	# integrator=False => JointTrajectory wird zum roboter gesendet
 	print 'Setting up the kinematic chains'
-	robot = Robot_LBR4("lbr4", use_integrator=True)
+	robot = Robot_LBR4("lbr4", use_integrator=False)
 
 	# Chain_SimplePose uses "Driver_Tflistener"
 	target_to_eef  = Chain_SimplePose('target_to_eef', 'x1', 'feature', 'marker', 'tool_center')
@@ -128,8 +128,8 @@ def run():
 		z_value = direct_kinematic(x)[2]
 		scene.endeffektor_z_soll = z_value
 		scene.endeffektor_z_ist = scene.drivers[1].get_value('o1z')
-		return z_value - 0.2
-	b16 = lambda x: 0.5 - direct_kinematic(x)[2]
+		return z_value - 0.1
+	b16 = lambda x: 0.4 - direct_kinematic(x)[2]
 
 	## example 3: keep distance end effector to obstacle greater than 0.1 ##
 	def b17(x):

@@ -42,6 +42,8 @@ class Scene_Simple_Obstacle(Scene_Simple):
         self.filee = open('/home/'+str(getpass.getuser())+'/versuch_b_'+str(int(self.inittime))+'.csv','w+')
         self.filee.write('zeit,distance_to_obstacle,aktivierungsfaktor,aktive_aufgaben\n')
         self.lastsavedtime = 0.0
+        self.zieloben=time.time()
+        self.zielunten=time.time()
 
 
     ### UPDATE CYCLE ###
@@ -74,12 +76,14 @@ class Scene_Simple_Obstacle(Scene_Simple):
         self.target_distance = sqrt( self.target_ee_x**2 + self.target_ee_y**2 + self.target_ee_z**2)
         
         # if...elif... statement for movement of the target tf
-        if self.target_distance <= 0.0002 and float(rospy.get_param('/target_z'))==self.start_point[2] :
+        if self.target_distance <= 0.002 and float(rospy.get_param('/target_z'))==self.start_point[2] and self.zielunten + 2.0 < time.time():
             #sends [x,y,z ,a,b,c] for new target tf to the parameter server
             self.send_target(self.end_point)
-        elif self.target_distance <= 0.0002 and float(rospy.get_param('/target_z'))==self.end_point[2]:
+            self.zieloben = time.time()
+        elif self.target_distance <= 0.002 and float(rospy.get_param('/target_z'))==self.end_point[2] and self.zieloben + 2.0 < time.time():
             # sends [x,y,z ,a,b,c] for new target tf to the parameter server
             self.send_target(self.start_point)
+            self.zielunten = time.time()
 
         # 
         if self.obstacle_distance <= 0.12:     

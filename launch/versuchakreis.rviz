@@ -158,8 +158,6 @@ Visualization Manager:
           Value: true
         moving_tf:
           Value: true
-        obstacle_1:
-          Value: true
         tool_center:
           Value: true
         tool_disk:
@@ -189,8 +187,6 @@ Visualization Manager:
                                 {}
                               tool_pole:
                                 {}
-            obstacle_1:
-              {}
           moving_tf:
             {}
       Update Interval: 0
@@ -237,22 +233,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.52974
+      Distance: 1.28885
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.419461
-        Y: 0.0280261
-        Z: 0.053933
+        X: 0.217028
+        Y: 0.167631
+        Z: 0.180095
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.674801
+      Pitch: 0.354801
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.61724
+      Yaw: 6.24725
     Saved: ~
 Window Geometry:
   Displays:
@@ -270,5 +266,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 1215
-  X: 1985
-  Y: 80
+  X: 441
+  Y: 47
