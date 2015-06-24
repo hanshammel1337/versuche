@@ -126,7 +126,7 @@
 		<param name="x_center_c" 	value="0.50" 	type="double" />
 		<param name="y_center_c" 	value="0" 		type="double" />
 		<param name="z_center_c" 	value="0.12" 	type="double" />
-		<param name="radius" 		value="0.15" 	type="double" />
+		<param name="radius" 		value="0.10" 	type="double" />
 
 		<!-- time parameters -->
 		<param name="time_steps_hz" value="100" 	type="double" />
