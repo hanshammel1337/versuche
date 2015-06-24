@@ -136,18 +136,19 @@ def run():
 	## example 3: keep distance end effector to obstacle greater than 0.1 ##
 	def b17(x):
 		ee_x, ee_y, ee_z = direct_kinematic(x)
-		distance_x = 0.3 - ee_x
+		distance_x = 0.4 - ee_x
 		distance_y = -0.15 - ee_y
 		distance_z = 0.10 - ee_z
 		distance_norm = sqrt(distance_x**2+distance_y**2+distance_z**2)
 		scene.distance_to_obstacle = distance_norm
 		## return inequality
 		## distance_norm > 0.1
+		print distance_norm
 		return distance_norm - 0.1
 
 	## set correct inequality list, when movement is in critical area
 	## not necessary, but maybe speed up the solver, due to smaller number of constraints
-	#inequaliy_list = [b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b16]
+	#inequaliy_list = [b1,b2,b3,b4,b5,b6,hh7,b8,b9,b10,b11,b12,b13,b16]
 	solver.add_inequality([b17])
 	#solver.remove_inequality([b1,b2,b3,b4])
 	
