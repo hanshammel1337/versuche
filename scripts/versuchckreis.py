@@ -96,7 +96,7 @@ def run():
 		T6 = np.dot(scene.links[5].transform_offset,kin.TransformRotZ(scene.measurements['joint_6']+ x[5]))
 		T7 = np.dot(scene.links[6].transform_offset,kin.TransformRotZ(scene.measurements['joint_7']+ x[6]))
 		T8 = scene.links[7].transform
-		T9 = kin.TransformRPY(0,0,0.1,0,0,0) #transform for gripper simple_pole
+		T9 = kin.TransformRPY(0,0,0.106,0,0,0) #transform for gripper simple_pole
 		T = T1.dot(T2).dot(T3).dot(T4).dot(T5).dot(T6).dot(T7).dot(T8).dot(T9)
 		## return x,y,z of end effector
 		return T[0,3],T[1,3],T[2,3]
